@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Дарья Полянская](https://up.htmlacademy.ru/javascript-individual/2/user/2436961).
-* Наставник: `Неизвестно`.
+- Студент: [Дарья Полянская](https://up.htmlacademy.ru/javascript-individual/2/user/2436961).
+- Наставник: `Юрий Белобородов`.
 
 ---
 
