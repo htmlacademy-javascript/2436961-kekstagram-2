@@ -1,36 +1,32 @@
 //1 задание - Функция для проверки длины строки
 
-const checkString = function (string, length) {
+const isStringLengthValid = function (string, length) {
   return string.length <= length;
 };
 
 // Строка короче 7 символов
-checkString('qwerty',7);
+isStringLengthValid('qwerty',7);
 // Строка ровно 6 символов
-checkString('qwerty',6);
+isStringLengthValid('qwerty',6);
 // Строка длиннее 5 символов
-checkString('qwerty',5);
+isStringLengthValid('qwerty',5);
 
 //2 задание - Функция для проверки, является ли строка палиндромом
 
-const checkPalindrome = function (string) {
+const isPalindrome = function (string) {
   const normalizedString = string.replaceAll(' ','').toLowerCase();
   let invertedString = '';
   for (let i = normalizedString.length - 1; i >= 0; i--) {
     invertedString += normalizedString[i];
   }
-  if (invertedString === normalizedString) {
-    return invertedString;
-  } else {
-    return false;
-  }
+  return invertedString === normalizedString;
 };
 
 // Строка является палиндромом
-checkPalindrome('топот');
+isPalindrome('топот');
 // Строка является палиндромом
-checkPalindrome('ДовОд');
+isPalindrome('ДовОд');
 // Строка не является палиндромом
-checkPalindrome('Кекс');
+isPalindrome('Кекс');
 // Строка является палиндромом
-checkPalindrome('Лёша на полке клопа нашёл ');
+isPalindrome('Лёша на полке клопа нашёл ');
