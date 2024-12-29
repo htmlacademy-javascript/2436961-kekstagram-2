@@ -50,8 +50,6 @@ function createPost() {
   };
 }
 
-function morePosts() {
+export function morePosts() {
   Array.from({length: 25}, createPost());
 }
-
-export {morePosts};
