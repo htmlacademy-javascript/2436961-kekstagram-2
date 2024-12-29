@@ -30,3 +30,20 @@ isPalindrome('ДовОд');
 isPalindrome('Кекс');
 // Строка является палиндромом
 isPalindrome('Лёша на полке клопа нашёл ');
+
+function calculateWorkMeeting(startWork, endWork, startMeet, timeMeet) {
+  function transformTimeInMinutes(time) {
+    const shareTime = time.split(':').map(Number);
+    const hours = shareTime[0];
+    const minutes = shareTime[1];
+    return hours * 60 + minutes;
+  }
+
+  const startWorkInMinutes = transformTimeInMinutes(startWork);
+  const endWorkInMinutes = transformTimeInMinutes(endWork);
+  const startMeetInMinutes = transformTimeInMinutes(startMeet);
+  const endMeetInMinutes = startMeetInMinutes + timeMeet;
+
+  return startMeetInMinutes >= startWorkInMinutes && endMeetInMinutes <= endWorkInMinutes;
+}
+calculateWorkMeeting(('08:00', '17:30', '14:00', 90));
