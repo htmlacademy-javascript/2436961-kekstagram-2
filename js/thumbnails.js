@@ -1,20 +1,26 @@
 import {morePosts} from './data.js';
 
-const pictures = document.querySelector('.pictures');
-const picturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const pictureList = document.querySelector('.pictures');
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const similarListFragment = document.createDocumentFragment();
 
 const similarPictures = morePosts();
 
-similarPictures.forEach((post) => {
-  const pictureElement = picturesTemplate.cloneNode(true);
+function createPictureElement (postData) {
+  const pictureElement = pictureTemplate.cloneNode(true);
   const image = pictureElement.querySelector('.picture__img');
-  image.src = post.url;
-  image.alt = post.description;
-  pictureElement.querySelector('.picture__likes').textContent = post.likes;
-  pictureElement.querySelector('.picture__comments').textContent = post.comments.length;
-  similarListFragment.appendChild(pictureElement);
-});
+  image.src = postData.url;
+  image.alt = postData.description;
+  pictureElement.querySelector('.picture__likes').textContent = postData.likes;
+  pictureElement.querySelector('.picture__comments').textContent = postData.comments.length;
+  return pictureElement;
+}
 
-pictures.appendChild(similarListFragment);
+export function drawPictures() {
+  similarPictures.forEach((post) => {
+    const picture = createPictureElement(post);
+    similarListFragment.appendChild(picture);
+  });
+  pictureList.appendChild(similarListFragment);
+}
