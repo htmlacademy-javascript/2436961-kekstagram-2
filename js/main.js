@@ -1,3 +1,5 @@
 import {morePosts} from './data.js';
+import {drawPictures} from './thumbnails.js';
 
-morePosts();
+const posts = morePosts();
+drawPictures(posts);
