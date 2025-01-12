@@ -1,5 +1,6 @@
 import {morePosts} from './data.js';
 import {drawPictures} from './thumbnails.js';
+import {thumbnailsList, onOpenBigPictureClick} from './bigPictures.js';
 
-const posts = morePosts();
-drawPictures(posts);
+drawPictures(morePosts);
+thumbnailsList.addEventListener('click', onOpenBigPictureClick);
