@@ -7,6 +7,7 @@ const similarListFragment = document.createDocumentFragment();
 
 function createPictureElement (postData) {
   const pictureElement = pictureTemplate.cloneNode(true);
+  pictureElement.dataset.photoId = postData.id;
   const image = pictureElement.querySelector('.picture__img');
   image.src = postData.url;
   image.alt = postData.description;
