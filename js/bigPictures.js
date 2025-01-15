@@ -30,18 +30,21 @@ function closeBigPicture () {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-export function openBigPicture (photoId) {
-  const pictureData = morePosts.find((postData) => postData.id === Number (photoId));
+function fillBigPicture (array) {
+  urlBigPicture.src = array.url;
+  urlBigPicture.alt = array.description;
+  likesBigPicture.textContent = array.likes;
+  totalCountCommentBigPicture.textContent = array.comments.length;
+  descriptionBigPicture.textContent = array.description;
+}
 
-  urlBigPicture.src = pictureData.url;
-  urlBigPicture.alt = pictureData.description;
-  likesBigPicture.textContent = pictureData.likes;
-  totalCountCommentBigPicture.textContent = pictureData.comments.length;
-  descriptionBigPicture.textContent = pictureData.description;
-
-  const commentListFragment = document.createDocumentFragment();
+function dropComments () {
   commentsBigPicture.innerHTML = '';
-  pictureData.comments.forEach((comment) => {
+}
+
+function createComments (array) {
+  const commentListFragment = document.createDocumentFragment();
+  array.comments.forEach((comment) => {
     const commentElement = commentTemplate.cloneNode(true);
     const commentAvatar = commentElement.querySelector('.social__picture');
     const commentText = commentElement.querySelector('.social__text');
@@ -51,6 +54,13 @@ export function openBigPicture (photoId) {
     commentListFragment.appendChild(commentElement);
   });
   commentsBigPicture.appendChild(commentListFragment);
+}
+
+export function openBigPicture (photoId) {
+  const pictureData = morePosts.find((postData) => postData.id === Number (photoId));
+  fillBigPicture(pictureData);
+  dropComments();
+  createComments(pictureData);
 
   countComment.classList.add('hidden');
   loadComment.classList.add('hidden');

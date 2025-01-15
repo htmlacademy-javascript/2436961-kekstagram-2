@@ -1,4 +1,5 @@
 import {morePosts} from './data.js';
+import {openBigPicture} from './bigPictures.js';
 
 const pictureList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -16,10 +17,18 @@ function createPictureElement (postData) {
   return pictureElement;
 }
 
+function onPictureListClick(evt) {
+  const card = evt.target.closest('.picture');
+  if (!card) return;
+
+  openBigPicture(card.dataset.photoId);
+}
+
 export function drawPictures() {
   morePosts.forEach((post) => {
     const picture = createPictureElement(post);
     similarListFragment.appendChild(picture);
   });
   pictureList.appendChild(similarListFragment);
+  pictureList.addEventListener('click', onPictureListClick);
 }
