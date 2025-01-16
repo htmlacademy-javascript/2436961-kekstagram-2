@@ -1,4 +1,3 @@
-
 import {getRandomInteger} from './util.js';
 
 const messages = [
@@ -33,23 +32,20 @@ function createComment() {
   };
 }
 
-function moreComments() {
-  Array.from({length: getRandomInteger(0,30)}, createComment ());
-}
+export const moreComments = createComment();
 
 function createPost() {
-  let postId = 1;
+  let idPost = 1;
   return () => {
     const post = {};
-    post.id = postId++;
+    post.id = idPost++;
     post.url = `photos/${post.id}.jpg`;
     post.description = `Какова красота на фото ${post.id}`;
     post.likes = getRandomInteger(15, 200);
-    post.comments = moreComments ();
+    post.comments = Array.from({ length: getRandomInteger(0, 30)}, moreComments);
     return post;
   };
 }
 
-export function morePosts() {
-  Array.from({length: 25}, createPost());
-}
+const morePosts = Array.from({ length: 25 }, createPost());
+export {morePosts};
