@@ -7,6 +7,8 @@ const body = document.querySelector('body');
 const inputUploadPhoto = formUploadPhoto.querySelector('#upload-file');
 const inputHashtagsPhoto = document.querySelector('.text__hashtags');
 const inputDescriptionPhoto = document.querySelector('.text__description');
+const previewPhoto = document.querySelector('.img-upload__preview').querySelector('img');
+const effectLevel = document.querySelector('.img-upload__effect-level');
 const regularForHashtag = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const onDocumentKeydown = (evt) => {
@@ -32,6 +34,8 @@ function closeOverlayPhoto () {
   inputUploadPhoto.value = '';
   inputHashtagsPhoto.value = '';
   inputDescriptionPhoto.value = '';
+  previewPhoto.removeAttribute('style');
+  effectLevel.classList.add('hidden');
 
   cancelUploadPhoto.removeEventListener('click', onCloseOverlayPhotoClick);
   document.removeEventListener('keydown', onDocumentKeydown);
