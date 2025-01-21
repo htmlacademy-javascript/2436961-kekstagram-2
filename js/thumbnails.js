@@ -19,7 +19,9 @@ function createPictureElement (postData) {
 
 function onPictureListClick(evt) {
   const card = evt.target.closest('.picture');
-  if (!card) return;
+  if (!card) {
+    return;
+  }
 
   openBigPicture(card.dataset.photoId);
 }
