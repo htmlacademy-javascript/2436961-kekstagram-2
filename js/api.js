@@ -46,19 +46,19 @@ export const sendData = (body) => fetch(
     throw new Error();
   });
 
-export function showSuccessMessageForPost() {
-  const successTemplate = document.querySelector('#success');
-  const successElement = successTemplate.content.cloneNode(true);
+export function showMessageForPost(className) {
+  const template = document.querySelector(`#${className}`);
+  const element = template.content.cloneNode(true);
 
-  document.body.appendChild(successElement);
+  document.body.appendChild(element);
 
-  const successMessage = document.querySelector('.success');
-  const successInner = successMessage.querySelector('.success__inner');
-  const closeButton = successMessage.querySelector('.success__button');
+  const message = document.querySelector(`.${className}`);
+  const inner = message.querySelector(`.${className}__inner`);
+  const closeButton = message.querySelector(`.${className}__button`);
 
-  closeButton.addEventListener('click', removeSuccessMessage);
-  function removeSuccessMessage() {
-    successMessage.remove();
+  closeButton.addEventListener('click', removeMessage);
+  function removeMessage() {
+    message.remove();
     document.removeEventListener('keydown', onEscPress);
     document.removeEventListener('click', onOutsideClick);
   }
@@ -67,43 +67,12 @@ export function showSuccessMessageForPost() {
   document.addEventListener('click', onOutsideClick);
   function onEscPress(event) {
     if (event.key === 'Escape') {
-      removeSuccessMessage();
+      removeMessage();
     }
   }
   function onOutsideClick(event) {
-    if (!successInner.contains(event.target)) {
-      removeSuccessMessage();
-    }
-  }
-}
-
-export function showErrorMessageForPost() {
-  const errorTemplate = document.querySelector('#error');
-  const errorElement = errorTemplate.content.cloneNode(true);
-
-  document.body.appendChild(errorElement);
-
-  const errorMessage = document.querySelector('.error');
-  const errorInner = errorMessage.querySelector('.error__inner');
-  const closeButton = errorMessage.querySelector('.error__button');
-
-  closeButton.addEventListener('click', removeErrorMessage);
-  function removeErrorMessage() {
-    errorMessage.remove();
-    document.removeEventListener('keydown', onEscPress);
-    document.removeEventListener('click', onOutsideClick);
-  }
-
-  document.addEventListener('keydown', onEscPress);
-  document.addEventListener('click', onOutsideClick);
-  function onEscPress(event) {
-    if (event.key === 'Escape') {
-      removeErrorMessage();
-    }
-  }
-  function onOutsideClick(event) {
-    if (!errorInner.contains(event.target)) {
-      removeErrorMessage();
+    if (!inner.contains(event.target)) {
+      removeMessage();
     }
   }
 }

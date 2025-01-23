@@ -1,5 +1,5 @@
 import {isEscapeKey} from './util.js';
-import {sendData, showSuccessMessageForPost, showErrorMessageForPost} from './api.js';
+import {sendData, showMessageForPost} from './api.js';
 
 const formUploadPhoto = document.querySelector('.img-upload__form');
 const overlayUploadPhoto = document.querySelector('.img-upload__overlay');
@@ -125,10 +125,10 @@ function sendFormPhoto (formElement) {
     sendData(formData)
       .then(closeOverlayPhoto)
       .then(() => {
-        showSuccessMessageForPost();
+        showMessageForPost('success');
       })
       .catch(() => {
-        showErrorMessageForPost();
+        showMessageForPost('error');
       })
       .finally(() => {
         submitUploadPhoto.disabled = false;
