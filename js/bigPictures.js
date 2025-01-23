@@ -1,5 +1,5 @@
-import {morePosts} from './data.js';
 import {isEscapeKey} from './util.js';
+import {morePost} from './api.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const cancelBigPicture = document.querySelector('.big-picture__cancel');
@@ -83,7 +83,7 @@ function loadAllComments (pictureDataComments) {
 
 export function openBigPicture (photoId) {
   dropComments();
-  const pictureData = morePosts.find((postData) => postData.id === Number (photoId));
+  const pictureData = morePost.find((postData) => postData.id === Number (photoId));
   fillBigPicture(pictureData);
   loadAllComments(pictureData.comments);
 

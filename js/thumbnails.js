@@ -1,4 +1,3 @@
-import {morePosts} from './data.js';
 import {openBigPicture} from './bigPictures.js';
 
 const pictureList = document.querySelector('.pictures');
@@ -26,8 +25,8 @@ function onPictureListClick(evt) {
   openBigPicture(card.dataset.photoId);
 }
 
-export function drawPictures() {
-  morePosts.forEach((post) => {
+export function drawPictures(data) {
+  data.forEach((post) => {
     const picture = createPictureElement(post);
     similarListFragment.appendChild(picture);
   });
