@@ -14,3 +14,17 @@ export function showListFragment (list, makeElement, container) {
 }
 
 export const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export const debounce = (callback, timeoutDelay) => {
+  let timeoutID;
+  return (...rest) => {
+    clearTimeout(timeoutID);
+    timeoutID = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export function clearAllPosts () {
+  document.querySelectorAll('.picture').forEach((item) => {
+    item.remove();
+  });
+}
