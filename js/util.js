@@ -22,3 +22,9 @@ export const debounce = (callback, timeoutDelay) => {
     timeoutID = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 };
+
+export function clearAllPosts () {
+  document.querySelectorAll('.picture').forEach((item) => {
+    item.remove();
+  });
+}
