@@ -15,6 +15,12 @@ const controlValue = document.querySelector('.scale__control--value');
 
 const regularForHashtag = /^#[a-zа-яё0-9]{1,19}$/i;
 
+const pristine = new Pristine(formUploadPhoto, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper--error',
+});
+
 const onDocumentKeydown = (evt) => {
   if (!isEscapeKey(evt)) {
     return;
@@ -42,6 +48,7 @@ function closeOverlayPhoto () {
   controlValue.value = '100%';
   previewPhoto.removeAttribute('style');
   effectLevel.classList.add('hidden');
+  pristine.reset();
 
   cancelUploadPhoto.removeEventListener('click', onCloseOverlayPhotoClick);
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -65,13 +72,11 @@ inputUploadPhoto.addEventListener('change', openOverlayPhoto);
 
 // Валидация полей формы
 
-const pristine = new Pristine(formUploadPhoto, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorClass: 'img-upload__field-wrapper--error',
-});
-
 function validateHashtag (value) {
+  const trimmedValue = value.trim();
+  if (trimmedValue === '') {
+    return true;
+  }
   const valueArray = value.trim().toLowerCase().split(' ');
   if (valueArray.length > 5) {
     return false;
@@ -90,6 +95,10 @@ function validateHashtag (value) {
 }
 
 function getErrorMessageHashtag (value) {
+  const trimmedValue = value.trim();
+  if (trimmedValue === '') {
+    return true;
+  }
   const valueArray = value.trim().toLowerCase().split(' ');
   if (valueArray.length > 5) {
     return 'Превышено количество хэштегов';
