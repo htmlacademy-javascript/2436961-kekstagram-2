@@ -12,8 +12,7 @@ const previewPhoto = document.querySelector('.img-upload__preview').querySelecto
 const effectLevel = document.querySelector('.img-upload__effect-level');
 const submitUploadPhoto = document.querySelector('.img-upload__submit');
 const controlValue = document.querySelector('.scale__control--value');
-
-const regularForHashtag = /^#[a-zа-яё0-9]{1,19}$/i;
+const REGULAR_FOR_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const pristine = new Pristine(formUploadPhoto, {
   classTo: 'img-upload__field-wrapper',
@@ -85,7 +84,7 @@ function validateHashtag (value) {
     return false;
   }
   for (let i = 0; i < valueArray.length; i++) {
-    if (!regularForHashtag.test(valueArray[i])) {
+    if (!REGULAR_FOR_HASHTAG.test(valueArray[i])) {
       return false;
     }
     for (let k = i + 1; k < valueArray.length; k++) {
@@ -107,7 +106,7 @@ function getErrorMessageHashtag (value) {
     return 'Превышено количество хэштегов';
   }
   for (let i = 0; i < valueArray.length; i++) {
-    if (!regularForHashtag.test(valueArray[i])) {
+    if (!REGULAR_FOR_HASHTAG.test(valueArray[i])) {
       return 'Введён невалидный хэштег';
     }
     for (let k = i + 1; k < valueArray.length; k++) {

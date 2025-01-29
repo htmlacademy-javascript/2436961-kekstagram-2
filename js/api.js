@@ -1,7 +1,7 @@
 import {drawPictures} from './thumbnails.js';
 import {drawFiltersPosts} from './category.js';
 
-export let morePost = [];
+export let morePosts = [];
 
 fetch('https://31.javascript.htmlacademy.pro/kekstagram/data')
   .then((response) => {
@@ -11,11 +11,11 @@ fetch('https://31.javascript.htmlacademy.pro/kekstagram/data')
     return response.json();
   })
   .then((data) => {
-    morePost = data;
-    drawPictures(morePost);
+    morePosts = data;
+    drawPictures(morePosts);
   })
   .then (() => {
-    drawFiltersPosts(morePost);
+    drawFiltersPosts(morePosts);
   })
   .catch(() => {
     showErrorMessageForGet();

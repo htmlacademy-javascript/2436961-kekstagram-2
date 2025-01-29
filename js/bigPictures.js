@@ -1,5 +1,5 @@
 import {isEscapeKey} from './util.js';
-import {morePost} from './api.js';
+import {morePosts} from './api.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const cancelBigPicture = document.querySelector('.big-picture__cancel');
@@ -15,7 +15,7 @@ const commentsBigPicture = document.querySelector('.social__comments');
 
 let comments = [];
 let indexComment = 0;
-const stepComment = 5;
+const STEP_COMMENT = 5;
 
 function onCloseBigPictureClick() {
   closeBigPicture();
@@ -50,7 +50,7 @@ function dropComments () {
 }
 
 function loadNextComments () {
-  const drawComments = comments.slice(indexComment, indexComment + stepComment);
+  const drawComments = comments.slice(indexComment, indexComment + STEP_COMMENT);
   const numberDrawComments = drawComments.length + indexComment;
 
   const commentListFragment = document.createDocumentFragment();
@@ -68,7 +68,7 @@ function loadNextComments () {
   countComment.textContent = numberDrawComments;
   totalCountCommentBigPicture.textContent = comments.length;
 
-  indexComment += stepComment;
+  indexComment += STEP_COMMENT;
 
   if (numberDrawComments >= comments.length) {
     loaderComments.classList.add('hidden');
@@ -83,7 +83,7 @@ function loadAllComments (pictureDataComments) {
 
 export function openBigPicture (photoId) {
   dropComments();
-  const pictureData = morePost.find((postData) => postData.id === Number (photoId));
+  const pictureData = morePosts.find((postData) => postData.id === Number (photoId));
   fillBigPicture(pictureData);
   loadAllComments(pictureData.comments);
 
