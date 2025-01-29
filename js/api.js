@@ -50,11 +50,14 @@ export const sendData = (body) => fetch(
     throw new Error();
   });
 
+export let isErrorMessageOpen = false;
+
 export function showMessageForPost(className) {
   const template = document.querySelector(`#${className}`);
   const element = template.content.cloneNode(true);
 
   document.body.appendChild(element);
+  isErrorMessageOpen = true;
 
   const message = document.querySelector(`.${className}`);
   const inner = message.querySelector(`.${className}__inner`);
@@ -63,6 +66,7 @@ export function showMessageForPost(className) {
   closeButton.addEventListener('click', removeMessage);
   function removeMessage() {
     message.remove();
+    isErrorMessageOpen = false;
     document.removeEventListener('keydown', onEscPress);
     document.removeEventListener('click', onOutsideClick);
   }

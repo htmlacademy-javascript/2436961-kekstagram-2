@@ -71,7 +71,8 @@ function onEffectListChange (evt) {
   });
 
   sliderEffect.noUiSlider.on('update', () => {
-    valueEffect.value = sliderEffect.noUiSlider.get();
+    const value = sliderEffect.noUiSlider.get();
+    valueEffect.value = parseFloat(value).toFixed(1);
     previewPhoto.style.filter = settings.filter(valueEffect.value);
   });
 }

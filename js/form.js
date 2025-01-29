@@ -1,5 +1,5 @@
 import {isEscapeKey} from './util.js';
-import {sendData, showMessageForPost} from './api.js';
+import {sendData, showMessageForPost, isErrorMessageOpen} from './api.js';
 
 const formUploadPhoto = document.querySelector('.img-upload__form');
 const overlayUploadPhoto = document.querySelector('.img-upload__overlay');
@@ -22,14 +22,17 @@ const pristine = new Pristine(formUploadPhoto, {
 });
 
 const onDocumentKeydown = (evt) => {
-  if (!isEscapeKey(evt)) {
-    return;
-  }
-  if (document.activeElement === inputHashtagsPhoto || document.activeElement === inputDescriptionPhoto) {
-    evt.stopPropagation();
-  } else {
-    evt.preventDefault();
-    closeOverlayPhoto();
+  if (isEscapeKey(evt)) {
+    if (!isErrorMessageOpen) {
+      if (document.activeElement === inputHashtagsPhoto || document.activeElement === inputDescriptionPhoto) {
+        evt.stopPropagation();
+      } else {
+        evt.preventDefault();
+        closeOverlayPhoto();
+      }
+    } else {
+      evt.preventDefault();
+    }
   }
 };
 
