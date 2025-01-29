@@ -1,7 +1,7 @@
 import {drawPictures} from './thumbnails.js';
 import {drawFiltersPosts} from './category.js';
 
-export let morePost = [];
+export let morePosts = [];
 
 fetch('https://31.javascript.htmlacademy.pro/kekstagram/data')
   .then((response) => {
@@ -11,11 +11,11 @@ fetch('https://31.javascript.htmlacademy.pro/kekstagram/data')
     return response.json();
   })
   .then((data) => {
-    morePost = data;
-    drawPictures(morePost);
+    morePosts = data;
+    drawPictures(morePosts);
   })
   .then (() => {
-    drawFiltersPosts(morePost);
+    drawFiltersPosts(morePosts);
   })
   .catch(() => {
     showErrorMessageForGet();
@@ -50,11 +50,14 @@ export const sendData = (body) => fetch(
     throw new Error();
   });
 
+export let isErrorMessageOpen = false;
+
 export function showMessageForPost(className) {
   const template = document.querySelector(`#${className}`);
   const element = template.content.cloneNode(true);
 
   document.body.appendChild(element);
+  isErrorMessageOpen = true;
 
   const message = document.querySelector(`.${className}`);
   const inner = message.querySelector(`.${className}__inner`);
@@ -63,6 +66,7 @@ export function showMessageForPost(className) {
   closeButton.addEventListener('click', removeMessage);
   function removeMessage() {
     message.remove();
+    isErrorMessageOpen = false;
     document.removeEventListener('keydown', onEscPress);
     document.removeEventListener('click', onOutsideClick);
   }

@@ -51,9 +51,6 @@ noUiSlider.create(sliderEffect, {
   connect: 'lower',
 });
 
-sliderEffect.noUiSlider.on('update', () => {
-  valueEffect.value = sliderEffect.noUiSlider.get();
-});
 effectLevel.classList.add('hidden');
 
 function onEffectListChange (evt) {
@@ -72,8 +69,10 @@ function onEffectListChange (evt) {
     start: settings.start,
     step: settings.step,
   });
-  valueEffect.value = sliderEffect.noUiSlider.get();
+
   sliderEffect.noUiSlider.on('update', () => {
+    const value = sliderEffect.noUiSlider.get();
+    valueEffect.value = parseFloat(value).toFixed(1);
     previewPhoto.style.filter = settings.filter(valueEffect.value);
   });
 }

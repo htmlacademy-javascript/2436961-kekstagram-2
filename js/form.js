@@ -1,5 +1,5 @@
 import {isEscapeKey} from './util.js';
-import {sendData, showMessageForPost} from './api.js';
+import {sendData, showMessageForPost, isErrorMessageOpen} from './api.js';
 
 const formUploadPhoto = document.querySelector('.img-upload__form');
 const overlayUploadPhoto = document.querySelector('.img-upload__overlay');
@@ -12,18 +12,26 @@ const previewPhoto = document.querySelector('.img-upload__preview').querySelecto
 const effectLevel = document.querySelector('.img-upload__effect-level');
 const submitUploadPhoto = document.querySelector('.img-upload__submit');
 const controlValue = document.querySelector('.scale__control--value');
+const REGULAR_FOR_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
 
-const regularForHashtag = /^#[a-zа-яё0-9]{1,19}$/i;
+const pristine = new Pristine(formUploadPhoto, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'img-upload__field-wrapper--error',
+});
 
 const onDocumentKeydown = (evt) => {
-  if (!isEscapeKey(evt)) {
-    return;
-  }
-  if (document.activeElement === inputHashtagsPhoto || document.activeElement === inputDescriptionPhoto) {
-    evt.stopPropagation();
-  } else {
-    evt.preventDefault();
-    closeOverlayPhoto();
+  if (isEscapeKey(evt)) {
+    if (!isErrorMessageOpen) {
+      if (document.activeElement === inputHashtagsPhoto || document.activeElement === inputDescriptionPhoto) {
+        evt.stopPropagation();
+      } else {
+        evt.preventDefault();
+        closeOverlayPhoto();
+      }
+    } else {
+      evt.preventDefault();
+    }
   }
 };
 
@@ -42,6 +50,7 @@ function closeOverlayPhoto () {
   controlValue.value = '100%';
   previewPhoto.removeAttribute('style');
   effectLevel.classList.add('hidden');
+  pristine.reset();
 
   cancelUploadPhoto.removeEventListener('click', onCloseOverlayPhotoClick);
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -65,19 +74,17 @@ inputUploadPhoto.addEventListener('change', openOverlayPhoto);
 
 // Валидация полей формы
 
-const pristine = new Pristine(formUploadPhoto, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorClass: 'img-upload__field-wrapper--error',
-});
-
 function validateHashtag (value) {
+  const trimmedValue = value.trim();
+  if (trimmedValue === '') {
+    return true;
+  }
   const valueArray = value.trim().toLowerCase().split(' ');
   if (valueArray.length > 5) {
     return false;
   }
   for (let i = 0; i < valueArray.length; i++) {
-    if (!regularForHashtag.test(valueArray[i])) {
+    if (!REGULAR_FOR_HASHTAG.test(valueArray[i])) {
       return false;
     }
     for (let k = i + 1; k < valueArray.length; k++) {
@@ -90,12 +97,16 @@ function validateHashtag (value) {
 }
 
 function getErrorMessageHashtag (value) {
+  const trimmedValue = value.trim();
+  if (trimmedValue === '') {
+    return true;
+  }
   const valueArray = value.trim().toLowerCase().split(' ');
   if (valueArray.length > 5) {
     return 'Превышено количество хэштегов';
   }
   for (let i = 0; i < valueArray.length; i++) {
-    if (!regularForHashtag.test(valueArray[i])) {
+    if (!REGULAR_FOR_HASHTAG.test(valueArray[i])) {
       return 'Введён невалидный хэштег';
     }
     for (let k = i + 1; k < valueArray.length; k++) {

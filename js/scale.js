@@ -2,22 +2,22 @@ const previewPhoto = document.querySelector('.img-upload__preview').querySelecto
 const controlSmaller = document.querySelector('.scale__control--smaller');
 const controlBigger = document.querySelector('.scale__control--bigger');
 const controlValue = document.querySelector('.scale__control--value');
-const scaleStep = 0.25;
-let scaleValue = 1;
+const SCALE_STEP = 0.25;
+let SCALE_VALUE = 1;
 
 function onSmallerClick () {
-  if (scaleValue > scaleStep) {
-    scaleValue -= scaleStep;
-    previewPhoto.style.transform = `scale(${scaleValue})`;
-    controlValue.value = `${scaleValue * 100}%`;
+  if (SCALE_VALUE > SCALE_STEP) {
+    SCALE_VALUE -= SCALE_STEP;
+    previewPhoto.style.transform = `scale(${SCALE_VALUE})`;
+    controlValue.value = `${SCALE_VALUE * 100}%`;
   }
 }
 
 function onBiggerClick () {
-  if (scaleValue < 1) {
-    scaleValue += scaleStep;
-    previewPhoto.style.transform = `scale(${scaleValue})`;
-    controlValue.value = `${scaleValue * 100}%`;
+  if (SCALE_VALUE < 1) {
+    SCALE_VALUE += SCALE_STEP;
+    previewPhoto.style.transform = `scale(${SCALE_VALUE})`;
+    controlValue.value = `${SCALE_VALUE * 100}%`;
   }
 }
 
