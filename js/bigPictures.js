@@ -3,7 +3,7 @@ import {morePosts} from './api.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const cancelBigPicture = document.querySelector('.big-picture__cancel');
-const body = document.querySelector('body');
+export const body = document.querySelector('body');
 const countComment = document.querySelector('.social__comment-shown-count');
 const loaderComments = document.querySelector('.comments-loader');
 const urlBigPicture = document.querySelector('.big-picture__img').querySelector('img');
