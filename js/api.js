@@ -1,9 +1,12 @@
 import {drawPictures} from './thumbnails.js';
 import {drawFiltersPosts} from './category.js';
 
+const GET_URL = 'https://31.javascript.htmlacademy.pro/kekstagram/data';
+const POST_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
+
 export let morePosts = [];
 
-fetch('https://31.javascript.htmlacademy.pro/kekstagram/data')
+fetch(GET_URL)
   .then((response) => {
     if (!response.ok) {
       throw new Error(`Ошибка загрузки данных: ${response.status} ${response.statusText}`);
@@ -36,7 +39,7 @@ function showErrorMessageForGet() {
 }
 
 export const sendData = (body) => fetch(
-  'https://31.javascript.htmlacademy.pro/kekstagram',
+  POST_URL,
   {
     method: 'POST',
     body,

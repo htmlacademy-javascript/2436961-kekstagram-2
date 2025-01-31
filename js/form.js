@@ -1,15 +1,16 @@
 import {isEscapeKey} from './util.js';
 import {sendData, showMessageForPost, isErrorMessageOpen} from './api.js';
+import {body} from './bigPictures.js';
 
 const formUploadPhoto = document.querySelector('.img-upload__form');
 const overlayUploadPhoto = document.querySelector('.img-upload__overlay');
 const cancelUploadPhoto = document.querySelector('.img-upload__cancel');
-const body = document.querySelector('body');
 const inputUploadPhoto = formUploadPhoto.querySelector('#upload-file');
 const inputHashtagsPhoto = document.querySelector('.text__hashtags');
 const inputDescriptionPhoto = document.querySelector('.text__description');
 const previewPhoto = document.querySelector('.img-upload__preview').querySelector('img');
 const effectLevel = document.querySelector('.img-upload__effect-level');
+const effectNone = document.querySelector('#effect-none');
 const submitUploadPhoto = document.querySelector('.img-upload__submit');
 const controlValue = document.querySelector('.scale__control--value');
 const REGULAR_FOR_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -46,7 +47,7 @@ function closeOverlayPhoto () {
   inputUploadPhoto.value = '';
   inputHashtagsPhoto.value = '';
   inputDescriptionPhoto.value = '';
-  document.querySelector('#effect-none').checked = true;
+  effectNone.checked = true;
   controlValue.value = '100%';
   previewPhoto.removeAttribute('style');
   effectLevel.classList.add('hidden');
